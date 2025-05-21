@@ -1,28 +1,22 @@
-# EX 6B KNAPSACK PROBLEM
+# EX 6C TRAVELLING SALES MAN PROBLEM
 
 ## DATE :
 
 ## AIM :
 
-To create a python program using dynamic programming for 0/1 knapsack problem..
+To Solve the given 2D matrix tsp[][], where each row has the array of distances from that indexed city to all the other cities and -1 denotes that there doesn’t exist a path between those two indexed cities. The task is to print minimum cost in TSP cycle.
 
 ## Algorithm :
 
-1.If there are no items or capacity is 0.
+1.Take the cost matrix that shows the cost between every pair of cities.
 
-2.Return 0 (no value can be added).
+2.Generate all possible orders (permutations) in which the cities can be visited.
 
-3.Check the weight of the current item:
+3.For each order, calculate the total travel cost, including returning to the starting city.
 
-4.If it's more than the remaining capacity, skip it and move to the next item.
+4.Keep track of the minimum total cost found so far.
 
-5.If the item can fit:
-
-6.Include it: Add its value and reduce the weight from total capacity.
-
-7.Exclude it: Move to the next item without including it.
-
-8.Return the maximum of the two choices (include or exclude).
+5.After checking all possible orders, return the minimum cost as the final answer.
 
 ## Program :
 
@@ -30,35 +24,19 @@ To create a python program using dynamic programming for 0/1 knapsack problem..
 ### Register Number:  212222220056
 
 ```
-def knapSack(W, wt, val, n):
-  
-    if n==0 or W==0:
-        return 0
-    if(wt[n-1]>W):
-        return knapSack(W,wt,val,n-1)
-    else:
-        return max(val[n-1] + knapSack(W-wt[n-1],wt,val,n-1) , knapSack(W,wt,val,n-1))
-    
+def tsp_cost(tsp):
+    return min(sum(tsp[i][j] for i, j in zip(path, path[1:] + path[:1])) for path in permutations(range(len(tsp))))
 
-x=int(input())
-y=int(input())
-W=int(input())
-val=[]
-wt=[]
-for i in range(x):
-    val.append(int(input()))
-for y in range(y):
-    wt.append(int(input()))
-
-n = len(val)
-print('The maximum value that can be put in a knapsack of capacity W is: ',knapSack(W, wt, val, n))
+from itertools import permutations
+tsp = [[-1, 30, 25, 10], [15, -1, 20, 40], [10, 20, -1, 25], [30, 10, 20, -1]]
+print("Minimum Cost is :",tsp_cost(tsp))
 ```
 
 ## Output :
 
-![image](https://github.com/user-attachments/assets/00f1b996-a7b1-4680-9a0d-fd565215da71)
+![image](https://github.com/user-attachments/assets/ecf9c7a0-3e7b-445b-96cd-5a069c62bebc)
 
 
 ## Result :
 
-Thus the program was executed successfully for finding the maximum value that can be put in a knap sack of capacity .
+Thus the program was executed successfully for finding the minimum cost to vist all cities.
